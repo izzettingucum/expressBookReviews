@@ -8,6 +8,15 @@ const isbnValidationInParams = [
         .withMessage("ISBN must be a number")
 ];
 
+const authorValidationInParams = [
+    param("author")
+        .notEmpty()
+        .withMessage("Author is required")
+        .isString()
+        .withMessage("Author must be a string")
+];
+
 module.exports = {
-    isbnValidationInParams
+    isbnValidationInParams,
+    authorValidationInParams
 };

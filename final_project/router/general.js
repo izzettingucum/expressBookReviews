@@ -40,9 +40,20 @@ public_users.get('/isbn/:isbn', bookValidations.isbnValidationInParams, handleVa
 });
 
 // Get book details based on author
-public_users.get('/author/:author', function (req, res) {
-    //Write your code here
-    return res.status(300).json({message: "Yet to be implemented"});
+public_users.get('/author/:author', bookValidations.authorValidationInParams, handleValidationErrors,  function (req, res) {
+    const author = req.params.author
+
+    const book = bookRepository.getBookByAuthor(author)
+
+    if (!book) {
+        res.status(404).json({
+            error: 'Book not found'
+        })
+    }
+
+    res.status(200).json({
+        data: book
+    })
 });
 
 // Get all books based on title

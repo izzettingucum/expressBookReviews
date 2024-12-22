@@ -16,7 +16,9 @@ class BookRepository {
      */
     getBookByAuthor(author)
     {
-        return Object.values(db).filter(book => book.author === author);
+        const book = Object.values(db).filter(book => book.author === author);
+
+        return book.length > 0 ? book : null;
     }
 
     /**
