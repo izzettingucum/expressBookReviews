@@ -1,8 +1,8 @@
 const express = require('express');
-let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 let bookValidations = require("../validations/bookValidations.js");
+let bookRepository = require("../repositories/bookRepository.js");
 let handleValidationErrors = require("../middlewares/handleValidationErrors.js");
 const public_users = express.Router();
 
@@ -14,6 +14,8 @@ public_users.post("/register", (req, res) => {
 
 // Get the book list available in the shop
 public_users.get('/', function (req, res) {
+    const books = bookRepository.getAllBooks()
+
     return res.status(200)
         .json({
             data: books
@@ -24,14 +26,16 @@ public_users.get('/', function (req, res) {
 public_users.get('/isbn/:isbn', bookValidations.isbnValidationInParams, handleValidationErrors, (req, res) => {
     const isbn = req.params.isbn
 
-    if (!books[isbn]) {
+    const book = bookRepository.getBookByIsbn(isbn)
+
+    if (!book) {
         res.status(404).json({
             error: 'Book not found'
         })
     }
 
     res.status(200).json({
-        data: books[isbn]
+        data: book
     })
 });
 
