@@ -2,6 +2,14 @@ let db = require("../router/booksdb.js");
 
 class BookRepository {
     /**
+     * @returns {*}
+     */
+    getAllBooks()
+    {
+        return db;
+    }
+
+    /**
      * @param isbn
      * @returns {*}
      */
@@ -22,11 +30,20 @@ class BookRepository {
     }
 
     /**
+     *
+     * @param title
      * @returns {*}
      */
-    getAllBooks()
+    getBookByTitle(title)
     {
-        return db;
+        const book = Object.values(db).filter(book => book.title === title);
+
+        return book.length > 0 ? book : null;
+    }
+
+    getBookReviewByIsbn(isbn)
+    {
+        return db[isbn].reviews;
     }
 }
 

@@ -53,9 +53,18 @@ public_users.get('/author/:author', bookValidations.authorValidationInParams, ha
 });
 
 // Get all books based on title
-public_users.get('/title/:title', function (req, res) {
-    //Write your code here
-    return res.status(300).json({message: "Yet to be implemented"});
+public_users.get('/title/:title', bookValidations.titleValidationInParams, handleValidationErrors, function (req, res) {
+    const book = bookRepository.getBookByTitle(req.params.title)
+
+    if (!book) {
+        res.status(404).json({
+            error: 'Book not found'
+        })
+    }
+
+    res.status(200).json({
+        data: book
+    })
 });
 
 //  Get book review

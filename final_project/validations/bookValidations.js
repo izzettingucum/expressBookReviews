@@ -16,7 +16,16 @@ const authorValidationInParams = [
         .withMessage("Author must be a string")
 ];
 
+const titleValidationInParams = [
+    param("title")
+        .notEmpty()
+        .withMessage("Title is required")
+        .isString()
+        .withMessage("Title must be a string")
+]
+
 module.exports = {
     isbnValidationInParams,
-    authorValidationInParams
+    authorValidationInParams,
+    titleValidationInParams
 };
