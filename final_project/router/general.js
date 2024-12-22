@@ -27,24 +27,27 @@ public_users.get('/isbn/:isbn', bookValidations.isbnValidationInParams, handleVa
     const book = bookRepository.getBookByIsbn(req.params.isbn)
 
     if (!book) {
-        res.status(404).json({
-            error: 'Book not found'
-        })
+        res.status(404)
+            .json({
+                error: 'Book not found'
+            })
     }
 
-    res.status(200).json({
-        data: book
-    })
+    res.status(200)
+        .json({
+            data: book
+        })
 });
 
 // Get book details based on author
-public_users.get('/author/:author', bookValidations.authorValidationInParams, handleValidationErrors,  function (req, res) {
+public_users.get('/author/:author', bookValidations.authorValidationInParams, handleValidationErrors, function (req, res) {
     const book = bookRepository.getBookByAuthor(req.params.author)
 
     if (!book) {
-        res.status(404).json({
-            error: 'Book not found'
-        })
+        res.status(404)
+            .json({
+                error: 'Book not found'
+            })
     }
 
     res.status(200).json({
@@ -57,14 +60,16 @@ public_users.get('/title/:title', bookValidations.titleValidationInParams, handl
     const book = bookRepository.getBookByTitle(req.params.title)
 
     if (!book) {
-        res.status(404).json({
-            error: 'Book not found'
-        })
+        res.status(404)
+            .json({
+                error: 'Book not found'
+            })
     }
 
-    res.status(200).json({
-        data: book
-    })
+    res.status(200)
+        .json({
+            data: book
+        })
 });
 
 //  Get book review
@@ -72,14 +77,16 @@ public_users.get('/review/:isbn', bookValidations.isbnValidationInParams, handle
     const reviews = bookRepository.getBookReviewsByIsbn(req.params.isbn)
 
     if (!reviews) {
-        res.status(404).json({
-            error: 'Book review not found'
-        })
+        res.status(404)
+            .json({
+                error: 'Book review not found'
+            })
     }
 
-    res.status(200).json({
-        data: reviews
-    })
+    res.status(200)
+        .json({
+            data: reviews
+        })
 });
 
 module.exports.general = public_users;
