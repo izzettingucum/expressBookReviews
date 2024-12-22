@@ -41,9 +41,13 @@ class BookRepository {
         return book.length > 0 ? book : null;
     }
 
-    getBookReviewByIsbn(isbn)
+    /**
+     * @param isbn
+     * @returns {*|null}
+     */
+    getBookReviewsByIsbn(isbn)
     {
-        return db[isbn].reviews;
+        return db[isbn] ? db[isbn].reviews : null;
     }
 }
 
