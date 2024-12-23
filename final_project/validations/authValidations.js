@@ -17,6 +17,20 @@ const registerValidation = [
         .withMessage("Password must be at least 6 characters")
 ]
 
+const loginValidation = [
+    body("username")
+        .notEmpty()
+        .withMessage("Username is required")
+        .isString()
+        .withMessage("Username must be a string"),
+    body("password")
+        .notEmpty()
+        .withMessage("Password is required")
+        .isString()
+        .withMessage("Password must be a string")
+]
+
 module.exports = {
-    registerValidation
+    registerValidation,
+    loginValidation
 };
