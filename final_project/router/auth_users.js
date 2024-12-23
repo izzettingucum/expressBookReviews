@@ -12,14 +12,14 @@ let users = [];
 const isValid = (username) =>
     users.some(user => user.username === username);
 
-const authenticatedUser = async (username, password) => { //returns boolean
+const authenticatedUser = (username, password) => {
     const user = users.find(user => user.username === username);
 
     if (!user) {
         return false;
     }
 
-    return await bcrypt.compare(password, user.password);
+    return bcrypt.compare(password, user.password);
 }
 
 //only registered users can login
