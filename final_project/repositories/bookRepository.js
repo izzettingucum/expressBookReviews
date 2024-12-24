@@ -1,6 +1,7 @@
 let db = require("../router/booksdb.js");
 
-class BookRepository {
+class BookRepository
+{
     /**
      * @returns {*}
      */
@@ -53,7 +54,6 @@ class BookRepository {
             reviewId: bookReviewDTO.reviewId
         });
     }
-
 }
 
 module.exports = new BookRepository();
