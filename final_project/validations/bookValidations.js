@@ -1,4 +1,4 @@
-const { param } = require("express-validator");
+const {param, body} = require("express-validator");
 
 const isbnValidationInParams = [
     param("isbn")
@@ -24,8 +24,17 @@ const titleValidationInParams = [
         .withMessage("Title must be a string")
 ]
 
+const reviewValidationInBody = [
+    body("review")
+        .notEmpty()
+        .withMessage("Review is required")
+        .isString()
+        .withMessage("Review must be a string")
+]
+
 module.exports = {
     isbnValidationInParams,
     authorValidationInParams,
-    titleValidationInParams
+    titleValidationInParams,
+    reviewValidationInBody
 };

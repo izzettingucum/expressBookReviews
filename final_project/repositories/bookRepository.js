@@ -42,12 +42,13 @@ class BookRepository {
     }
 
     /**
-     * @param isbn
-     * @returns {*|null}
+     * @param book
+     * @param data
+     * @returns {*}
      */
-    getBookReviewsByIsbn(isbn)
+    addReviewToBook(book, data)
     {
-        return db[isbn] ? db[isbn].reviews : null;
+        return book.reviews.push(data);
     }
 }
 

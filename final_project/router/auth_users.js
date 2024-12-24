@@ -48,10 +48,38 @@ regd_users.post("/login", authValidations.loginValidation, handleValidationError
 });
 
 // Add a book review
-regd_users.put("/auth/review/:isbn", (req, res) => {
-    //Write your code here
-    return res.status(300).json({message: "Yet to be implemented"});
-});
+regd_users.put("/auth/review/:isbn",
+    [bookValidations.isbnValidationInParams, bookValidations.reviewValidationInBody],
+    handleValidationErrors,
+    (req, res) => {
+        const book = bookRepository.getBookByIsbn(req.params.isbn);
+
+        if (!book) {
+            return res.status(404)
+                .json({
+                    error: 'Book not found'
+                })
+        }
+
+        if (!Array.isArray(book.reviews)) {
+            book.reviews = [];
+        }
+
+        const addReviewToBook = bookRepository.addReviewToBook(book, req.body.review);
+
+        if (!addReviewToBook) {
+            return res.status(404)
+                .json({
+                    error: 'Error adding review'
+                })
+        }
+
+        return res.status(200)
+            .json({
+                message: 'Review added successfully',
+                book: book
+            });
+    });
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
