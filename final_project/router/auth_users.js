@@ -1,13 +1,19 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-let books = require("./booksdb.js");
+let bookValidations = require("../validations/bookValidations.js");
 let authValidations = require("../validations/authValidations.js");
+let bookRepository = require("../repositories/bookRepository.js");
 let authConfig = require("../config/auth.js").authConfig;
 let handleValidationErrors = require("../middlewares/handleValidationErrors.js");
 const bcrypt = require("bcrypt");
 const regd_users = express.Router();
 
-let users = [];
+let users = [
+    {
+        username: "test",
+        password: "$2a$12$KaWVFTfVzRN06L412jeEe.1rtuQKr/iFN9Enzk.2ka3pnA.TZ7D8.", // encrypted password
+    }
+];
 
 const isValid = (username) =>
     users.some(user => user.username === username);
