@@ -43,12 +43,13 @@ class BookRepository {
 
     /**
      * @param book
+     * @param username
      * @param data
      * @returns {*}
      */
-    addReviewToBook(book, data)
+    addReviewToBook(book, username, data)
     {
-        return book.reviews.push(data);
+        return book.reviews.push({ username, data });
     }
 }
 

@@ -65,7 +65,7 @@ regd_users.put("/auth/review/:isbn",
             book.reviews = [];
         }
 
-        const addReviewToBook = bookRepository.addReviewToBook(book, req.body.review);
+        const addReviewToBook = bookRepository.addReviewToBook(book, req.user.username, req.body.review);
 
         if (!addReviewToBook) {
             return res.status(404)
