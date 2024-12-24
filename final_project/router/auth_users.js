@@ -27,7 +27,7 @@ const authenticatedUser = (username, password) => {
         return false;
     }
 
-    return bcrypt.compare(password, user.password);
+    return bcrypt.compareSync(password, user.password);
 }
 
 //only registered users can login
