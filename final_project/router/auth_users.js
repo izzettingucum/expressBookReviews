@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken');
 let bookValidations = require("../validations/bookValidations.js");
 let authValidations = require("../validations/authValidations.js");
 let bookRepository = require("../repositories/bookRepository.js");
+let bookReviewDTOBuilder = require("../builders/bookReviewDTOBuilder")
 let authConfig = require("../config/auth.js").authConfig;
 let handleValidationErrors = require("../middlewares/handleValidationErrors.js");
+const { v7: uuidv7 } = require('uuid');
 const bcrypt = require("bcrypt");
 const regd_users = express.Router();
 
@@ -65,7 +67,13 @@ regd_users.put("/auth/review/:isbn",
             book.reviews = [];
         }
 
-        const addReviewToBook = bookRepository.addReviewToBook(book, req.user.username, req.body.review);
+        const bookReviewDTO = new bookReviewDTOBuilder()
+            .setUsername(req.user.username)
+            .setReview(req.body.review)
+            .setReviewId(uuidv7())
+            .build();
+
+        const addReviewToBook = bookRepository.addReviewToBook(book, bookReviewDTO);
 
         if (!addReviewToBook) {
             return res.status(404)
@@ -79,7 +87,7 @@ regd_users.put("/auth/review/:isbn",
                 message: 'Review added successfully',
                 book: book
             });
-    });
+});
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;

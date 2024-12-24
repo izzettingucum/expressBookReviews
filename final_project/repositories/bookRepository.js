@@ -43,14 +43,17 @@ class BookRepository {
 
     /**
      * @param book
-     * @param username
-     * @param data
+     * @param bookReviewDTO
      * @returns {*}
      */
-    addReviewToBook(book, username, data)
-    {
-        return book.reviews.push({ username, data });
+    addReviewToBook(book, bookReviewDTO) {
+        return book.reviews.push({
+            username: bookReviewDTO.username,
+            review: bookReviewDTO.review,
+            reviewId: bookReviewDTO.reviewId
+        });
     }
+
 }
 
 module.exports = new BookRepository();
